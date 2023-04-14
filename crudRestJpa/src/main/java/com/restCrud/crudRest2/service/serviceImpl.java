@@ -21,7 +21,7 @@ public class serviceImpl implements employeeService{
 
     @Override
     public List<Employee> findAllEmployees() {
-       return employeeRepository.findAll();
+       return employeeRepository.findAllByOrderByFirstNameAsc();
     }
 
     @Override

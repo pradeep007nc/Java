@@ -3,12 +3,14 @@ package com.restCrud.crudRest2.rest;
 import com.restCrud.crudRest2.entity.Employee;
 import com.restCrud.crudRest2.service.employeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("api")
+@Controller
+@RequestMapping("/api")
 public class restController {
 
 //    private employeeDAO employeeDAO;
@@ -20,8 +22,17 @@ public class restController {
     }
 
     @GetMapping("/employees")
-    public List<Employee> findAll(){
-       return employeeService.findAllEmployees();
+    public String employees(Model model){
+        model.addAttribute("employees", employeeService.findAllEmployees());
+        return "Employees/list-employees";
+    }
+
+    @GetMapping("/showFormForAdd")
+    public String showForm(Model model){
+        //create a model attribute to bind the data
+        Employee employee = new Employee();
+        model.addAttribute("employee", employee);
+        return "Employees/Employee-form";
     }
 
     @GetMapping("/employees/{id}")
@@ -41,11 +52,27 @@ public class restController {
        return employee1;
     }
 
+    //for thymeleaf
+    @PostMapping("/save")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee){
+        employeeService.save(employee);
+        return "redirect:/api/employees";
+    }
+
     //add mapping for put - update employee
     @PutMapping("/employees")
     public Employee updateEmployee(@RequestBody Employee employee){
         Employee employee1 = employeeService.save(employee);
         return employee1;
+    }
+
+    //for thymeleaf
+    @GetMapping("/showFormForUpdate")
+    public String showFromUpdate(@RequestParam("employeeId") int Id, Model model){
+        Employee employee = employeeService.findById(Id);
+        model.addAttribute("employee", employee);
+        //send this to form
+        return "Employees/Employee-form";
     }
 
 
@@ -55,6 +82,13 @@ public class restController {
         Employee employee = employeeService.findById(id);
         employeeService.deleteById(id);
         return employee;
+    }
+
+    //for thymeleaf
+    @GetMapping("/delete")
+    public String delete(@RequestParam("employeeId") int Id){
+        employeeService.deleteById(Id);
+        return "redirect:/api/employees";
     }
 
 }
