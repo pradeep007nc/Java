@@ -1,0 +1,29 @@
+.subscribe{
+    background-color: blueviolet;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    height: 50px;
+    width: 100pt;
+    padding: 25px 15px 0px 25px;
+    margin-left: 20pc;
+    border-radius: 20px;
+    align-items: center;
+    align-content: center;
+}
+
+.buddy{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100%;
+    font-style: italic;
+    font: italic small-caps normal 2em/150% Arial, Helvetica, sans-serif;
+}
+
+
+.buddy1{
+    color: blueviolet;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100%;
+    font-style: italic;
+    font: italic small-caps normal 2em/150% bold, Helvetica, sans-serif;
+}
