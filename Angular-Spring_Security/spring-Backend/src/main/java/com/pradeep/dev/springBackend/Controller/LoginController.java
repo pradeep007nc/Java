@@ -1,5 +1,6 @@
 package com.pradeep.dev.springBackend.Controller;
 
+import com.pradeep.dev.springBackend.Config.UserAuthProvider;
 import com.pradeep.dev.springBackend.Dto.CredentialsDto;
 import com.pradeep.dev.springBackend.Dto.SignupDto;
 import com.pradeep.dev.springBackend.Dto.UserDto;
@@ -17,10 +18,12 @@ import java.net.URI;
 public class LoginController {
 
     private final UserService userService;
+    private final UserAuthProvider userAuthProvider;
 
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody CredentialsDto credentials){
         UserDto user = userService.login(credentials);
+        user.setToken(userAuthProvider.createToken(user));
         return ResponseEntity.ok(user);
     }
 
