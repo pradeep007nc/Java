@@ -24,4 +24,22 @@ export class ContentComponent {
       console.log("mama mia")
     })
   }
+
+
+  onRegister(input: any): void{
+    this.axiosService.request(
+      "POST",
+      "/register",
+      {
+        firstName: input.firstName,
+        lastName: input.lastName,
+        login: input.login,
+        password: input.password
+      }
+    ).then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log("mama mia")
+    })
+  }
 }
