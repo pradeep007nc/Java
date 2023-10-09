@@ -1,5 +1,6 @@
 package com.pradeep.dev.springBackend.Config;
 
+import com.pradeep.dev.springBackend.Dto.ErrorDto;
 import com.pradeep.dev.springBackend.Exceptions.AppException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

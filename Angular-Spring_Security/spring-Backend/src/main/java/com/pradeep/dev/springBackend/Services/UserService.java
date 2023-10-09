@@ -3,8 +3,9 @@ package com.pradeep.dev.springBackend.Services;
 import com.pradeep.dev.springBackend.Dto.CredentialsDto;
 import com.pradeep.dev.springBackend.Dto.UserDto;
 import com.pradeep.dev.springBackend.Entities.User;
+import com.pradeep.dev.springBackend.Exceptions.AppException;
 import com.pradeep.dev.springBackend.Mappers.UserMapper;
-import com.pradeep.dev.springBackend.Rpositories.UserRepository;
+import com.pradeep.dev.springBackend.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +29,6 @@ public class UserService {
         ,user.getPassword())){
             return userMapper.toUserDto(user);
         }
-        throw new Exception("Invalid Password", HttpStatus.BAD_REQUEST);
+        throw new AppException("Invalid Password", HttpStatus.BAD_REQUEST);
     }
 }

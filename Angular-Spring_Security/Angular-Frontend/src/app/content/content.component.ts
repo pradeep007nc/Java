@@ -18,6 +18,10 @@ export class ContentComponent {
         login: input.login,
         password: input.password
       }
-    )
+    ).then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log("mama mia")
+    })
   }
 }

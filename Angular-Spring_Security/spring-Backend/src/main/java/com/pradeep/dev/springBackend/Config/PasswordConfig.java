@@ -1,14 +1,16 @@
 package com.pradeep.dev.springBackend.Config;
 
-import org.hibernate.annotations.Comment;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Configuration
 public class PasswordConfig {
 
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }

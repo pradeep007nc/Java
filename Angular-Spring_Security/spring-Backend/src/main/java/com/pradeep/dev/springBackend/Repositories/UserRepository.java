@@ -1,4 +1,4 @@
-package com.pradeep.dev.springBackend.Rpositories;
+package com.pradeep.dev.springBackend.Repositories;
 
 import com.pradeep.dev.springBackend.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
