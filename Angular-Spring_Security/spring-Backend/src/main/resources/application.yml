@@ -1,0 +1,11 @@
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/JwtAuthentication
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.PostgresqlSQLDialect
+    hibernate:
+      ddl-auto: 'create-drop'
