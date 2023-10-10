@@ -1,6 +1,13 @@
 <div>
-  <app-login-form
+
+  <app-buttons (loginEvent)="showComponent('login')" (logoutEvent)="showComponent('welcome')"></app-buttons>
+
+  <app-welcome-content *ngIf="contentToShow == 'welcome'"></app-welcome-content>
+
+  <app-login-form *ngIf="contentToShow == 'login'"
   (onSubmitLoginEvent)="onLogin($event)"
   (onSubmitRegisterEvent)="onRegister($event)"
   ></app-login-form>
+
+  <app-auth-content *ngIf="contentToShow == 'messages'"></app-auth-content>
 </div>
