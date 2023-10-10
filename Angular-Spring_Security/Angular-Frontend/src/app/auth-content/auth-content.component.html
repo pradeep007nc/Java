@@ -4,7 +4,7 @@
       <div class="card-body">
         <h5>Backend Response</h5>
         <p class="card-text">Content:</p>
-          <div *ngFor="let item of data">
+          <div *ngFor="let item of data | async">
             {{ item }}
           </div>
       </div>

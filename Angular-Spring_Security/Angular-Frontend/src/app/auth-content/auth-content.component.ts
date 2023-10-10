@@ -1,3 +1,5 @@
+import { Observable, of, from } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AxiosService } from './../services/axios.service';
 import { Component } from '@angular/core';
 
@@ -8,25 +10,23 @@ import { Component } from '@angular/core';
 })
 export class AuthContentComponent {
 
-  data: string[] = [];
+  data: Observable<string[]> = of([]);
 
   constructor(private axiosService: AxiosService) {}
 
   ngOnInit(): void {
-    this.axiosService.request(
-        "GET",
-        "/messages",
-        {}).then(
-        (response) => {
-            this.data = response.data;
-        }).catch(
-        (error) => {
-            if (error.response.status === 401) {
-                this.axiosService.setAuthToken(null);
-            } else {
-              this.data = error.response.code;
-            }
-        }
+    this.data = from(
+      this.axiosService.request('GET', '/messages', {})
+        .then(response => response.data)
+        .catch(error => {
+          if (error.response && error.response.status === 401) {
+            this.axiosService.setAuthToken(null);
+          }
+
+          console.error('Error:', error);
+          // Handle other errors appropriately, set a default value or show an error message
+          return [];
+        })
     );
   }
 
