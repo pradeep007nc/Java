@@ -4,9 +4,9 @@
       <div class="card-body">
         <h5>Backend Response</h5>
         <p class="card-text">Content:</p>
-        <ul>
-          <li *ngFor="let line of data">{{line}}</li>
-        </ul>
+          <div *ngFor="let item of data">
+            {{ item }}
+          </div>
       </div>
     </div>
   </div>

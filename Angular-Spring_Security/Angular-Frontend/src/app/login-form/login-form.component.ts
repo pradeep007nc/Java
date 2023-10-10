@@ -31,7 +31,7 @@ export class LoginFormComponent {
   }
 
   onSubmitRegister() {
-    this.onSubmitLoginEvent.emit({
+    this.onSubmitRegisterEvent.emit({
       firstName: this.firstName,
       lastName: this.lastName,
       login: this.login,

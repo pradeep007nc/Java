@@ -18,7 +18,7 @@
         <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
           <div class="form-outline mb-4">
             <input type="login" id="loginName" name="login" [(ngModel)]="login">
-            <label for="username">Username</label>
+            <label for="loginName">Username</label>
           </div>
 
           <div class="form-outline mb-4">
@@ -31,7 +31,7 @@
       </div>
 
       <div [ngClass]="active == 'register' ? 'tab-pane fade show active' : 'tab-pane fade'">
-        <form (ngSubmit)="onSubmitRegister()" #loginForm="ngForm">
+        <form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
           <div class="form-outline mb-4">
             <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName">
             <label for="firstName">First Name</label>
@@ -43,13 +43,13 @@
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="login" name="login" [(ngModel)]="login">
-            <label for="login">Login</label>
+            <input type="text" id="registerLogin" name="login" [(ngModel)]="login">
+            <label for="registerLogin">Login</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="password" id="password" name="password" [(ngModel)]="password">
-            <label for="password">Password</label>
+            <input type="password" id="registerPassword" name="password" [(ngModel)]="password">
+            <label for="registerPassword">Password</label>
           </div>
 
           <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>

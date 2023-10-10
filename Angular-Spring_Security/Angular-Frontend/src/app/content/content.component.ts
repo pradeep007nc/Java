@@ -25,9 +25,11 @@ export class ContentComponent {
         password: input.password
       }
     ).then(response => {
-      console.log(response)
+      this.axiosService.setAuthToken(response.data.token);
+      this.contentToShow = "messages";
     }).catch(error => {
-      console.log("mama mia")
+            this.axiosService.setAuthToken(null);
+            this.contentToShow = "welcome";
     })
   }
 
@@ -43,9 +45,13 @@ export class ContentComponent {
         password: input.password
       }
     ).then(response => {
-      console.log(response)
-    }).catch(error => {
-      console.log("mama mia")
-    })
+      this.axiosService.setAuthToken(response.data.token);
+      this.contentToShow = "messages";
+    }).catch(
+      error => {
+        this.axiosService.setAuthToken(null);
+        this.contentToShow = "welcome";
+    }
+    )
   }
 }
