@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pradeep.dev.springBackend.Dto.UserDto;
+import com.pradeep.dev.springBackend.Entities.User;
+import com.pradeep.dev.springBackend.Services.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,9 @@ public class UserAuthProvider {
 
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String SecretKey;
+
+
+    private final UserService userService;
 
     @PostConstruct
     protected void init(){
@@ -52,6 +57,20 @@ public class UserAuthProvider {
                 .firstName(decoded.getClaim("firstName").asString())
                 .lastName(decoded.getClaim("lastName").asString())
                 .build();
+
+        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+    }
+
+
+    public Authentication validateTokenStrongly(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(SecretKey);
+
+        JWTVerifier verifier = JWT.require(algorithm)
+                .build();
+
+        DecodedJWT decoded = verifier.verify(token);
+
+        UserDto user = userService.findByLogin(decoded.getSubject());
 
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
     }
