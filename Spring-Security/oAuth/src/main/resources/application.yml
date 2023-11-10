@@ -1,0 +1,25 @@
+
+server:
+  port: 8080
+
+#GitHub login
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+
+#Google login
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 4c844a77fb9dd5aa5c2f
+            client-secret: ceb3ee5e52810708f5f8436c6651c12b7e3b3101
+          google:
+            client-id: 911768540088-nepusn0oqtqgjojefh5e44cdr1m8ka5h.apps.googleusercontent.com
+            client-secret: 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
