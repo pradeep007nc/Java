@@ -8,6 +8,8 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css">
+
 
     <script th:inline="javascript">
         function redirectToCreateEmployee() {
@@ -60,19 +62,18 @@
             <td th:text="${tempEmployee.phone}" />
 
             <td>
-                <a class="btn btn-warning" th:href="@{/Employees/UpdateEmployee/{id}(id=${tempEmployee.uuid})}">
-                    <i class="bi bi-pencil"></i> Update
-                </a>
+                <div class="btn-group" role="group">
+                    <a class="btn btn-warning" th:href="@{/Employees/UpdateEmployee/{id}(id=${tempEmployee.uuid})}" style="margin-right: 5px">
+                        <i class="bi-pencil"></i> Update
+                    </a>
+                    <form th:action="@{/Employees/DeleteEmployee/{uuid}(uuid=${tempEmployee.uuid})}" method="post">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
             </td>
 
-            <!-- Delete Icon - Form for Delete Action -->
-            <td>
-                <form th:action="@{/Employees/DeleteEmployee/{uuid}(uuid=${tempEmployee.uuid})}" method="post">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash"></i> Delete
-                    </button>
-                </form>
-            </td>
         </tr>
         </tbody>
     </table>

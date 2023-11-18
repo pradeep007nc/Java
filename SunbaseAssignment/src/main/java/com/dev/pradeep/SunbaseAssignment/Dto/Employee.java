@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import lombok.*;
 
-import javax.annotation.processing.Generated;
 import java.util.UUID;
 
 @Data

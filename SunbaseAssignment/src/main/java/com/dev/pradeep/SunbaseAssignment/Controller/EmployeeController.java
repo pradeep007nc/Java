@@ -69,6 +69,9 @@ public class EmployeeController {
     @PostMapping("/DeleteEmployee/{uuid}")
     public String deleteEmployee(@PathVariable("uuid") String uuid) {
         if (this.cacheService.isTokenAvailable()) {
+            if (uuid == null){
+                return "redirect:/Employees";
+            }
             employeeService.deleteEmployee(uuid);
             employeeService.fetchAllEmployees();
             return "redirect:/Employees";

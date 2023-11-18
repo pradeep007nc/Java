@@ -17,13 +17,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class EmployeeService {
 
     public EmployeeService(CacheService cacheService){
         this.cacheService = cacheService;
-        this.employees = new HashMap<>();
+        this.employees = new ConcurrentHashMap<>();
         //demo employee to check
     }
 
@@ -171,6 +172,8 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(String uuid) {
+        if (uuid == null)
+            return;
         String endpoint = "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp";
         String cmd = "delete";
 
@@ -213,7 +216,8 @@ public class EmployeeService {
 
     public void deleteAllEmployees(){
         employees.values().forEach((employee) -> {
-            deleteEmployee(employee.getUuid());
+            if (employee != null && employee.uuid != null)
+                deleteEmployee(employee.getUuid());
         });
     }
 
