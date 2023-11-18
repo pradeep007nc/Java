@@ -15,18 +15,24 @@
             var url =  "http://localhost:8080/Employees/CreateEmployee";
             window.location.href = url;
         }
+
+        function redirectToDeleteAllEmployee() {
+            var url = "http://localhost:8080/Employees/DeleteAllEmployees";
+            window.location.href = url;
+        }
     </script>
 
 
-    <title>Employee Directory</title>
+    <title>Customer List</title>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h3>Employee Directory</h3>
-    <button class="btn btn-primary" onclick="redirectToCreateEmployee()">Add Employee</button>
+    <h3>Customer List</h3>
+    <button class="btn btn-primary" onclick="redirectToCreateEmployee()">Add Customer</button>
+    <button class="btn btn-danger" onclick="redirectToDeleteAllEmployee()">delete all Customer</button>
     <hr>
 
     <table class="table table-bordered table-striped">
@@ -34,16 +40,39 @@
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Address</th>
+            <th>city</th>
+            <th>state</th>
             <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each="tempEmployee : ${employees}">
-
             <td th:text="${tempEmployee.firstName}" />
             <td th:text="${tempEmployee.lastName}" />
+            <td th:text="${tempEmployee.address}" />
+            <td th:text="${tempEmployee.city}" />
+            <td th:text="${tempEmployee.state}" />
             <td th:text="${tempEmployee.email}" />
+            <td th:text="${tempEmployee.phone}" />
+
+            <td>
+                <a class="btn btn-warning" th:href="@{/Employees/UpdateEmployee/{id}(id=${tempEmployee.uuid})}">
+                    <i class="bi bi-pencil"></i> Update
+                </a>
+            </td>
+
+            <!-- Delete Icon - Form for Delete Action -->
+            <td>
+                <form th:action="@{/Employees/DeleteEmployee/{uuid}(uuid=${tempEmployee.uuid})}" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

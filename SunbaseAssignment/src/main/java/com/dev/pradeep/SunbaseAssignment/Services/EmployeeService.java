@@ -29,7 +29,7 @@ public class EmployeeService {
 
     private final CacheService cacheService;
 
-    Map<String, Employee> employees;
+    public Map<String, Employee> employees;
     public void addEmployee(Employee employee) {
         String endpoint = "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=create";
 
@@ -117,8 +117,105 @@ public class EmployeeService {
             }
         }
 
+    public void updateEmployee(String uuid, Employee updatedEmployee) {
+        String endpoint = "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=update";
+
+        String authorizationToken = cacheService.getToken().trim();
+
+        // Add the UUID as a parameter in the URL
+        endpoint += "&uuid=" + uuid;
+
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(endpoint);
+
+        // Set the request headers
+        httpPost.addHeader("Authorization", "Bearer " + authorizationToken);
+        httpPost.addHeader("Content-Type", "application/json");
+
+        // Convert the updated Employee object to JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody;
+        try {
+            requestBody = objectMapper.writeValueAsString(updatedEmployee);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // Set the request body
+        EntityBuilder entityBuilder = EntityBuilder.create();
+        entityBuilder.setText(requestBody);
+        httpPost.setEntity(entityBuilder.build());
+
+        try {
+            // Execute the request
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity httpEntity = response.getEntity();
+
+            // Check the response status code
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
+                System.out.println("Successfully updated employee");
+            } else if (statusCode == 400) {
+                System.out.println("Bad request: Invalid data");
+            } else {
+                System.out.println("Unexpected response code: " + statusCode);
+            }
+
+            // Print the response body for debugging purposes
+            System.out.println(EntityUtils.toString(httpEntity));
+            employees.put(uuid, updatedEmployee);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEmployee(String uuid) {
+        String endpoint = "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp";
+        String cmd = "delete";
+
+        String authorizationToken = cacheService.getToken().trim();
+
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(endpoint + "?cmd=" + cmd + "&uuid=" + uuid);
+
+        // Set the request headers
+        httpPost.addHeader("Authorization", "Bearer " + authorizationToken);
+        httpPost.addHeader("Content-Type", "application/json");
+
+        try {
+            // Execute the request
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity httpEntity = response.getEntity();
+
+            // Check the response status code
+            int statusCode = response.getStatusLine().getStatusCode();
+            System.out.println(statusCode);
+            if (statusCode == 200) {
+                System.out.println("Successfully deleted employee");
+            } else if (statusCode == 400) {
+                System.out.println("UUID not found");
+            } else if (statusCode == 500) {
+                System.out.println("Error: Not deleted");
+            } else {
+                System.out.println("Unexpected response code: " + statusCode);
+            }
+
+            // Print the response body for debugging purposes
+            System.out.println(EntityUtils.toString(httpEntity));
+            employees.remove(uuid);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
+    public void deleteAllEmployees(){
+        employees.values().forEach((employee) -> {
+            deleteEmployee(employee.getUuid());
+        });
+    }
 
     public Employee getEmployeeById(String uuid){
         return employees.get(uuid);

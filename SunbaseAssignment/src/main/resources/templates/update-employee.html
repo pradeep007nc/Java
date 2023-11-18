@@ -16,7 +16,9 @@
 
 <div class="container">
     <h1>Add/Update Employee</h1>
-    <form th:action="@{/Employees/AddEmployee}" method="post" th:object="${employee}">
+    <form th:action="@{/Employees/UpdateEmployee}" method="post" th:object="${employee}">
+        <input type="hidden" id="uuid" th:name="uuid" th:value="*{uuid}" />
+
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" th:name="firstName" th:value="*{firstName}" required/>
 
