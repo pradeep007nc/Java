@@ -9,6 +9,15 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
+    <script th:inline="javascript">
+        function redirectToCreateEmployee() {
+            /* Use Thymeleaf syntax to construct the URL */
+            var url =  "http://localhost:8080/Employees/CreateEmployee";
+            window.location.href = url;
+        }
+    </script>
+
+
     <title>Employee Directory</title>
 </head>
 
@@ -17,26 +26,26 @@
 <div class="container">
 
     <h3>Employee Directory</h3>
+    <button class="btn btn-primary" onclick="redirectToCreateEmployee()">Add Employee</button>
     <hr>
 
     <table class="table table-bordered table-striped">
-<!--        <thead class="table-dark">-->
-<!--        <tr>-->
-<!--            <th>First Name</th>-->
-<!--            <th>Last Name</th>-->
-<!--            <th>Email</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
+        <thead class="table-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
 
-<!--        <tbody>-->
-<!--        <tr th:each="tempEmployee : ${employees}">-->
+        <tbody>
+        <tr th:each="tempEmployee : ${employees}">
 
-<!--            <td th:text="${tempEmployee.firstName}" />-->
-<!--            <td th:text="${tempEmployee.lastName}" />-->
-<!--            <td th:text="${tempEmployee.email}" />-->
-
-<!--        </tr>-->
-<!--        </tbody>-->
+            <td th:text="${tempEmployee.firstName}" />
+            <td th:text="${tempEmployee.lastName}" />
+            <td th:text="${tempEmployee.email}" />
+        </tr>
+        </tbody>
     </table>
 
 </div>
