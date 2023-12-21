@@ -42,7 +42,7 @@ public class AuthService {
     }
 
 
-    public AuthenticationResponse authenicate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword()

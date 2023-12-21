@@ -23,7 +23,7 @@ public class TempController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(authService.authenicate(request));
+        return ResponseEntity.ok(authService.authenticate(request));
     }
 
 }
