@@ -12,7 +12,10 @@ import lombok.ToString;
 @Table(name = "user_token")
 public class UserToken extends BaseEntity {
 
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    @ToString.Exclude
+    private User user;
 
     private String token;
 

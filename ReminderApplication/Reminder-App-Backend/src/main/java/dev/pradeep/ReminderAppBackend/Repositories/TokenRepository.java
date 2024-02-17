@@ -27,4 +27,9 @@ public class TokenRepository {
     public void save(UserToken userToken) {
         userTokenDao.save(userToken);
     }
+
+
+    public Optional<UserToken> findByToken(String token) {
+        return userTokenDao.findByToken(token);
+    }
 }

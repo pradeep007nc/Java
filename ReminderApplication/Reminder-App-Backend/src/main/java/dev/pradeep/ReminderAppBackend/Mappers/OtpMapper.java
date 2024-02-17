@@ -4,8 +4,6 @@ import dev.pradeep.ReminderAppBackend.Enums.OtpStatus;
 import dev.pradeep.ReminderAppBackend.Models.LoginOtp;
 import dev.pradeep.ReminderAppBackend.Models.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.springframework.stereotype.Component;
 
 @Mapper
 public class OtpMapper {

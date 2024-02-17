@@ -26,7 +26,7 @@ public class ControllerAdvisor {
     }
 
 
-    @ExceptionHandler(value = {OtpMaxLimitException.class, WrongOtpException.class})
+    @ExceptionHandler(value = {OtpMaxLimitException.class, WrongOtpException.class, UserAlreadyExistApplication.class})
     public ResponseEntity<ErrorResponseDto> handleNotAcceptableUserException(Exception exception) {
         log.error("handleNotAcceptableUserException", exception);
         ErrorResponseDto errorResponseDto = new ErrorResponseDto();
@@ -34,4 +34,11 @@ public class ControllerAdvisor {
         return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler(value = {UnauthorizedUserException.class})
+    public ResponseEntity<ErrorResponseDto> handleUnauthorizedUserException(Exception exception) {
+        log.error("handleUnauthorizedUserException", exception);
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setMessage(exception.getMessage());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.UNAUTHORIZED);
+    }
 }

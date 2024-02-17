@@ -22,4 +22,6 @@ public class LoginOtpRepository {
     public Optional<LoginOtp> findLoginOtpExists(String mobileNumber, OtpStatus otpStatus) {
         return loginOtpDao.findByMobileNumberAndStatus(mobileNumber, otpStatus);
     }
+
+
 }

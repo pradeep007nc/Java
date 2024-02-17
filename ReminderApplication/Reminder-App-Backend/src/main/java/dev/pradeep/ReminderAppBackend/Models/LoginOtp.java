@@ -13,12 +13,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "login_otp")
-public class LoginOtp extends BaseEntity{
+public class LoginOtp extends BaseEntity {
     private Long userId;
     private String mobileNumber;
     @Enumerated(EnumType.STRING)
     private UserType userType;
     private String otp;
     private int retryCount;
+    @Enumerated(EnumType.STRING)
     private OtpStatus status;
 }

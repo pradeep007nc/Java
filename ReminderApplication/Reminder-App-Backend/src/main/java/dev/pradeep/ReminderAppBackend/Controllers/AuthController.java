@@ -1,6 +1,7 @@
 package dev.pradeep.ReminderAppBackend.Controllers;
 
 import dev.pradeep.ReminderAppBackend.Dtos.Request.LoginDto;
+import dev.pradeep.ReminderAppBackend.Dtos.Request.SignupDto;
 import dev.pradeep.ReminderAppBackend.Dtos.Request.ValidateOtpDto;
 import dev.pradeep.ReminderAppBackend.Dtos.Response.LoginResponseDto;
 import dev.pradeep.ReminderAppBackend.Dtos.Response.ValidateOtpResponseDto;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/user/auth")
+@RequestMapping("/api/user/auth")
 public class AuthController {
 
     private final UserAuthService userAuthService;
@@ -30,6 +31,13 @@ public class AuthController {
     @PostMapping("/validate-otp")
     public ValidateOtpResponseDto validateOtp(@RequestBody ValidateOtpDto validateOtpDto) {
         return userAuthService.validateOtpForLogin(validateOtpDto);
+    }
+
+    @PostMapping("/signup")
+    public void signup(
+            @RequestBody SignupDto signupDto
+    ) {
+        userAuthService.signupUser(signupDto);
     }
 
 }

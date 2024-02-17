@@ -1,12 +1,15 @@
 package dev.pradeep.ReminderAppBackend.Services;
 
 import dev.pradeep.ReminderAppBackend.Dtos.Request.LoginDto;
+import dev.pradeep.ReminderAppBackend.Dtos.Request.SignupDto;
 import dev.pradeep.ReminderAppBackend.Dtos.Request.ValidateOtpDto;
 import dev.pradeep.ReminderAppBackend.Dtos.Response.LoginResponseDto;
 import dev.pradeep.ReminderAppBackend.Dtos.Response.ValidateOtpResponseDto;
 import dev.pradeep.ReminderAppBackend.Enums.OtpStatus;
+import dev.pradeep.ReminderAppBackend.Enums.UserType;
 import dev.pradeep.ReminderAppBackend.Exceptions.OtpMaxLimitException;
 import dev.pradeep.ReminderAppBackend.Exceptions.OtpNoFoundException;
+import dev.pradeep.ReminderAppBackend.Exceptions.UserAlreadyExistApplication;
 import dev.pradeep.ReminderAppBackend.Exceptions.WrongOtpException;
 import dev.pradeep.ReminderAppBackend.Mappers.OtpMapper;
 import dev.pradeep.ReminderAppBackend.Mappers.TokenMapper;
@@ -75,13 +78,16 @@ public class UserAuthService {
     }
 
     private void validateOtp(ValidateOtpDto validateOtpDto) {
+        //check user exist
+        User user = userRepository.findUserByMobileNumber(validateOtpDto.getMobileNumber());
+
         LoginOtp loginOtp = loginOtpRepository.findLoginOtpExists(validateOtpDto.getMobileNumber(), OtpStatus.INITIATED).orElseThrow(OtpNoFoundException::new);
 
         if (loginOtp.getRetryCount() == 0) {
             loginOtp.setStatus(OtpStatus.EXPIRED);
             loginOtpRepository.save(loginOtp);
             throw new OtpMaxLimitException();
-        } else if (loginOtp.getOtp().equals(validateOtpDto.getMobileNumber())) {
+        } else if (loginOtp.getOtp().equals(validateOtpDto.getOtp())) {
             loginOtp.setStatus(OtpStatus.VERIFIED);
             loginOtpRepository.save(loginOtp);
         } else {
@@ -108,4 +114,16 @@ public class UserAuthService {
         return new ValidateOtpResponseDto().setToken(token.getToken());
     }
 
+    public void signupUser(SignupDto signupDto) {
+        //check if user already exist
+        Optional<User> prevUser = userRepository.findByMobileNumber(signupDto.getMobileNumber());
+
+        if (prevUser.isEmpty()) {
+            User user = new User();
+            user.setUserName(signupDto.getUserName());
+            user.setMobileNumber(signupDto.getMobileNumber());
+            user.setUserType(UserType.USER);
+            userRepository.save(user);
+        } else throw new UserAlreadyExistApplication();
+    }
 }
