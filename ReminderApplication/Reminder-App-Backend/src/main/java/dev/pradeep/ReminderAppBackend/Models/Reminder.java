@@ -4,15 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "reminder")
-public class Reminder extends BaseEntity{
+@Table(name = "reminders")
+public class Reminder extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "users_id")
     @ToString.Exclude
@@ -20,7 +22,7 @@ public class Reminder extends BaseEntity{
 
     private LocalDateTime reminderTime;
 
-    private LocalDateTime currentDate;
+    private LocalDateTime remindedAtTime;
     private String reminderMessage;
     private String reminderName;
 }

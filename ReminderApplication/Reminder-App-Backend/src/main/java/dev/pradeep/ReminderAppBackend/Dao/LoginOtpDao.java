@@ -5,7 +5,6 @@ import dev.pradeep.ReminderAppBackend.Models.LoginOtp;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface LoginOtpDao extends CrudRepository<LoginOtp, Long> {

@@ -6,9 +6,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper
-public interface TokenMapper {
-    @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "tokenWipeOff", constant = "false")
-    UserToken mapUserToken(User user);
+public class TokenMapper {
+    public UserToken mapUserToken(User user) {
+        UserToken userToken = new UserToken();
+        userToken.setUserId(user.getId());
+        userToken.setTokenWipeOff(false);
+        userToken.setUserType(user.getUserType());
+        return userToken;
+    }
 
 }

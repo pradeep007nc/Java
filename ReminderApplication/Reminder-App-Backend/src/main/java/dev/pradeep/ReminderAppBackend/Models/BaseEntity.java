@@ -46,7 +46,7 @@ public class BaseEntity implements Serializable {
         if (this == o) {
             return true;
         } else if (o != null && Hibernate.getClass(this) == Hibernate.getClass(o)) {
-            BaseEntity that = (BaseEntity)o;
+            BaseEntity that = (BaseEntity) o;
             return this.id != null && Objects.equals(this.id, that.id);
         } else {
             return false;
@@ -83,7 +83,7 @@ public class BaseEntity implements Serializable {
 
     public String toString() {
         Long var10000 = this.getId();
-        return "BaseEntity(id=" + var10000 + ", createdAt=" + String.valueOf(this.getCreatedAt()) + ", updatedAt=" + String.valueOf(this.getUpdatedAt()) + ")";
+        return "BaseEntity(id=" + var10000 + ", createdAt=" + this.getCreatedAt() + ", updatedAt=" + this.getUpdatedAt() + ")";
     }
 
     public BaseEntity() {

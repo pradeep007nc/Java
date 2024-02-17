@@ -1,17 +1,24 @@
 package dev.pradeep.ReminderAppBackend.Mappers;
 
+import dev.pradeep.ReminderAppBackend.Enums.OtpStatus;
 import dev.pradeep.ReminderAppBackend.Models.LoginOtp;
 import dev.pradeep.ReminderAppBackend.Models.User;
-import dev.pradeep.ReminderAppBackend.Utils.LoginUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
 @Mapper
-public interface OtpMapper {
+public class OtpMapper {
 
-    @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "retryCount", constant = "3")
-    @Mapping(target = "status", constant = "INITIATED")
-    LoginOtp toLoginOtp(User user);
+    public LoginOtp mapToLoginOtp(User user) {
+        LoginOtp loginOtp = new LoginOtp();
+        loginOtp.setUserId(user.getId());
+        loginOtp.setRetryCount(3);
+        loginOtp.setStatus(OtpStatus.INITIATED);
+        loginOtp.setUserType(user.getUserType());
+        loginOtp.setMobileNumber(user.getMobileNumber());
+        loginOtp.setUserType(user.getUserType());
+        return loginOtp;
+    }
 
 }

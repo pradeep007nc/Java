@@ -11,10 +11,11 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     private String userName;
     private String mobileNumber;
+    @Enumerated(EnumType.STRING)
     private UserType userType;
-    @OneToMany(mappedBy = "reminder", cascade = CascadeType.ALL)
-    private List<Reminder> Reminders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Reminder> reminders;
 }

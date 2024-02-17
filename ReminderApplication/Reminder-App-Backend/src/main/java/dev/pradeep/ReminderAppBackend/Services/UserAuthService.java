@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -33,8 +32,8 @@ public class UserAuthService {
     private final UserRepository userRepository;
     private final LoginOtpRepository loginOtpRepository;
     private final TokenRepository tokenRepository;
-    private final OtpMapper otpMapper;
-    private final TokenMapper tokenMapper;
+    private final OtpMapper otpMapper = new OtpMapper();
+    private final TokenMapper tokenMapper = new TokenMapper();
 
     public LoginResponseDto loginUser(LoginDto loginDto) {
         //check if the mobile number i.e user exists
@@ -55,18 +54,18 @@ public class UserAuthService {
         return sendToken(validateOtpDto);
     }
 
-    private String saveLoginOtp(User user){
+    private String saveLoginOtp(User user) {
         String otp = LoginUtil.generateOTP();
 
         //if already exist make it expire and send one more otp
         Optional<LoginOtp> prevOtp = loginOtpRepository.findLoginOtpExists(user.getMobileNumber(), OtpStatus.INITIATED);
-        if (prevOtp.isPresent()){
+        if (prevOtp.isPresent()) {
             prevOtp.get().setStatus(OtpStatus.EXPIRED);
             loginOtpRepository.save(prevOtp.get());
         }
 
         //map the login otp entity
-        LoginOtp loginOtp = otpMapper.toLoginOtp(user);
+        LoginOtp loginOtp = otpMapper.mapToLoginOtp(user);
         loginOtp.setOtp(otp);
 
         //save the entity
@@ -75,24 +74,24 @@ public class UserAuthService {
         return otp;
     }
 
-    private void validateOtp(ValidateOtpDto validateOtpDto){
-      LoginOtp loginOtp = loginOtpRepository.findLoginOtpExists(validateOtpDto.getMobileNumber(), OtpStatus.INITIATED).orElseThrow(OtpNoFoundException::new);
+    private void validateOtp(ValidateOtpDto validateOtpDto) {
+        LoginOtp loginOtp = loginOtpRepository.findLoginOtpExists(validateOtpDto.getMobileNumber(), OtpStatus.INITIATED).orElseThrow(OtpNoFoundException::new);
 
-      if (loginOtp.getRetryCount() == 0){
-          loginOtp.setStatus(OtpStatus.EXPIRED);
-          loginOtpRepository.save(loginOtp);
-          throw new OtpMaxLimitException();
-      }else if (loginOtp.getOtp().equals(validateOtpDto.getMobileNumber())){
-          loginOtp.setStatus(OtpStatus.VERIFIED);
-          loginOtpRepository.save(loginOtp);
-      }else {
-          loginOtp.setRetryCount(loginOtp.getRetryCount() - 1);
-          loginOtpRepository.save(loginOtp);
-          throw new WrongOtpException();
-      }
+        if (loginOtp.getRetryCount() == 0) {
+            loginOtp.setStatus(OtpStatus.EXPIRED);
+            loginOtpRepository.save(loginOtp);
+            throw new OtpMaxLimitException();
+        } else if (loginOtp.getOtp().equals(validateOtpDto.getMobileNumber())) {
+            loginOtp.setStatus(OtpStatus.VERIFIED);
+            loginOtpRepository.save(loginOtp);
+        } else {
+            loginOtp.setRetryCount(loginOtp.getRetryCount() - 1);
+            loginOtpRepository.save(loginOtp);
+            throw new WrongOtpException();
+        }
     }
 
-    private ValidateOtpResponseDto sendToken(ValidateOtpDto validateOtpDto){
+    private ValidateOtpResponseDto sendToken(ValidateOtpDto validateOtpDto) {
         User user = userRepository.findUserByMobileNumber(validateOtpDto.getMobileNumber());
 
         Optional<UserToken> userToken = tokenRepository.findByUserIdAndWipeOffFalse(user.getId());

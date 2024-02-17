@@ -1,7 +1,6 @@
 package dev.pradeep.ReminderAppBackend.Repositories;
 
 import dev.pradeep.ReminderAppBackend.Dao.UserTokenDao;
-import dev.pradeep.ReminderAppBackend.Exceptions.TokenNotFoundException;
 import dev.pradeep.ReminderAppBackend.Exceptions.UserNotFoundException;
 import dev.pradeep.ReminderAppBackend.Models.UserToken;
 import lombok.RequiredArgsConstructor;

@@ -14,24 +14,17 @@ public class ErrorResponseDto {
     public boolean equals(final Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof ErrorResponseDto)) {
+        } else if (!(o instanceof ErrorResponseDto other)) {
             return false;
         } else {
-            ErrorResponseDto other = (ErrorResponseDto)o;
             if (!other.canEqual(this)) {
                 return false;
             } else {
                 Object this$message = this.getMessage();
                 Object other$message = other.getMessage();
                 if (this$message == null) {
-                    if (other$message != null) {
-                        return false;
-                    }
-                } else if (!this$message.equals(other$message)) {
-                    return false;
-                }
-
-                return true;
+                    return other$message == null;
+                } else return this$message.equals(other$message);
             }
         }
     }

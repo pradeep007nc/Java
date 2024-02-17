@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface UserDao extends CrudRepository<User, Long> {
 
-    @Query("select u from user u where u.mobileNumber = :mobileNumber")
+    @Query("select u from User u where u.mobileNumber = :mobileNumber")
     Optional<User> findUserByMobileNumber(String mobileNumber);
 }

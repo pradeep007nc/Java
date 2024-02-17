@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "login_otp")
-public class LoginOtp {
+public class LoginOtp extends BaseEntity{
     private Long userId;
     private String mobileNumber;
     @Enumerated(EnumType.STRING)
