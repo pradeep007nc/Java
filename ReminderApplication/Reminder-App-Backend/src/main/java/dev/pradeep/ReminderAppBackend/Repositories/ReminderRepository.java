@@ -1,5 +1,6 @@
 package dev.pradeep.ReminderAppBackend.Repositories;
 
+import dev.pradeep.ReminderAppBackend.Dao.ReminderDao;
 import dev.pradeep.ReminderAppBackend.Dao.UserDao;
 import dev.pradeep.ReminderAppBackend.Dtos.Request.ReminderDto;
 import dev.pradeep.ReminderAppBackend.Exceptions.UserNotFoundException;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReminderRepository {
 
+    private final ReminderDao reminderDao;
     private final ReminderMapper reminderMapper = new ReminderMapper();
     private final UserDao userDao;
 
@@ -30,5 +32,9 @@ public class ReminderRepository {
 
         //map reminders to dto
         return reminderMapper.mapReminderToDto(reminders);
+    }
+
+    public void save(Reminder reminder) {
+        reminderDao.save(reminder);
     }
 }
