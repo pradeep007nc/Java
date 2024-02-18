@@ -17,8 +17,9 @@ import java.util.List;
 public class ReminderService {
     private final ReminderRepository reminderRepository;
     private final ReminderMapper reminderMapper = new ReminderMapper();
+
     public List<ReminderDto> listReminders(Long id) {
-            return reminderRepository.listReminders(id);
+        return reminderRepository.listReminders(id);
     }
 
 

@@ -1,10 +1,8 @@
 package dev.pradeep.ReminderAppBackend.Controllers;
 
 
-import dev.pradeep.ReminderAppBackend.Constants.InterceptorConstants;
 import dev.pradeep.ReminderAppBackend.Dtos.Request.ReminderDto;
 import dev.pradeep.ReminderAppBackend.Models.User;
-import dev.pradeep.ReminderAppBackend.Repositories.ReminderRepository;
 import dev.pradeep.ReminderAppBackend.Services.ReminderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +31,7 @@ public class ReminderController {
     public void addReminder(
             @RequestAttribute(USER) User user,
             @RequestBody ReminderDto reminderDto
-    ){
+    ) {
         reminderService.addReminder(user, reminderDto);
     }
 }
