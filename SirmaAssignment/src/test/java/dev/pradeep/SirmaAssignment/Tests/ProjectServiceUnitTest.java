@@ -1,4 +1,4 @@
-package dev.pradeep.SirmaAssignment;
+package dev.pradeep.SirmaAssignment.Tests;
 
 import dev.pradeep.SirmaAssignment.Dto.Request.CreateProjectDto;
 import dev.pradeep.SirmaAssignment.Dto.Request.UpdateProjectDto;
@@ -14,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 @DataJpaTest
-public class ProjectServiceTest {
+public class ProjectServiceUnitTest {
 
   @MockBean public ProjectService projectService;
 
