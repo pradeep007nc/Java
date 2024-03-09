@@ -2,6 +2,7 @@ package dev.pradeep.SirmaAssignment.Advisor;
 
 import dev.pradeep.SirmaAssignment.Dto.ErrorResponseDto;
 import dev.pradeep.SirmaAssignment.Exceptions.ProjectNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class ControllerAdvisor {
 
-  @ExceptionHandler(value = {IllegalArgumentException.class, MethodArgumentNotValidException.class})
+  @ExceptionHandler(
+      value = {
+        ConstraintViolationException.class,
+        IllegalArgumentException.class,
+        MethodArgumentNotValidException.class
+      })
   public ResponseEntity<ErrorResponseDto> handleBadRequestException(Exception exception) {
     log.error("handleBadRequestException", exception);
     ErrorResponseDto errorResponseDto = new ErrorResponseDto();

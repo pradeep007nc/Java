@@ -19,6 +19,8 @@ public class BaseEntity implements Serializable {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
+  public BaseEntity() {}
+
   @PrePersist
   void createDate() {
     if (this.createdAt == null) {
@@ -52,20 +54,20 @@ public class BaseEntity implements Serializable {
     return this.id;
   }
 
-  public LocalDateTime getCreatedAt() {
-    return this.createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt() {
-    return this.updatedAt;
-  }
-
   public void setId(final Long id) {
     this.id = id;
   }
 
+  public LocalDateTime getCreatedAt() {
+    return this.createdAt;
+  }
+
   public void setCreatedAt(final LocalDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return this.updatedAt;
   }
 
   public void setUpdatedAt(final LocalDateTime updatedAt) {
@@ -82,6 +84,4 @@ public class BaseEntity implements Serializable {
         + this.getUpdatedAt()
         + ")";
   }
-
-  public BaseEntity() {}
 }

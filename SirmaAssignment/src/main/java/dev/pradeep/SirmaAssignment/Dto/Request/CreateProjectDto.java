@@ -4,9 +4,11 @@ import dev.pradeep.SirmaAssignment.Enum.ProjectStatus;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CreateProjectDto {
 
   @NotBlank(message = "Name is required")

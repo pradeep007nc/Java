@@ -4,9 +4,11 @@ import dev.pradeep.SirmaAssignment.Enum.ProjectStatus;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UpdateProjectDto {
   @NotNull(message = "Project id is required")
   private Long projectId;

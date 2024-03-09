@@ -8,6 +8,7 @@ import dev.pradeep.SirmaAssignment.Dto.Response.ProjectUpdatedResponse;
 import dev.pradeep.SirmaAssignment.Model.Project;
 import dev.pradeep.SirmaAssignment.Services.ProjectService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,10 @@ public class ProjectController {
   @GetMapping("/read-project/{projectId}")
   public Project readProject(@PathVariable Long projectId) {
     return projectService.findProject(projectId);
+  }
+
+  @GetMapping("/find-all-projects")
+  public List<Project> findAllProjects() {
+    return projectService.findAllProjects();
   }
 }

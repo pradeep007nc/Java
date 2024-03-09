@@ -8,6 +8,7 @@ import dev.pradeep.SirmaAssignment.Dto.Response.ProjectUpdatedResponse;
 import dev.pradeep.SirmaAssignment.Mapper.ProjectMapper;
 import dev.pradeep.SirmaAssignment.Model.Project;
 import dev.pradeep.SirmaAssignment.Repository.ProjectRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,9 @@ public class ProjectService {
 
   public Project findProject(Long projectId) {
     return projectRepository.findById(projectId);
+  }
+
+  public List<Project> findAllProjects() {
+    return projectRepository.findAll();
   }
 }

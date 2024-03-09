@@ -3,6 +3,12 @@ package dev.pradeep.SirmaAssignment.Dto;
 public class ErrorResponseDto {
   private String message;
 
+  public ErrorResponseDto(final String message) {
+    this.message = message;
+  }
+
+  public ErrorResponseDto() {}
+
   public String getMessage() {
     return this.message;
   }
@@ -44,10 +50,4 @@ public class ErrorResponseDto {
   public String toString() {
     return "ErrorResponseDto(message=" + this.getMessage() + ")";
   }
-
-  public ErrorResponseDto(final String message) {
-    this.message = message;
-  }
-
-  public ErrorResponseDto() {}
 }

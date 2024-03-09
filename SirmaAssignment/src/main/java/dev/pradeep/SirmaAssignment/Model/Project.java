@@ -7,17 +7,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-/*
-   I'd defined in base entity where other metadata is also defined
-   like created at and updated at
-*/
 @Getter
 @Setter
 @ToString
@@ -25,6 +18,11 @@ import org.hibernate.type.SqlTypes;
 @Entity
 @Table(name = "projects")
 public class Project extends BaseEntity {
+  /*
+     I'd defined in base entity where other metadata is also defined
+     like created at and updated at
+     id autoincrement
+  */
   private String name;
   private String description;
   private LocalDate startDate;

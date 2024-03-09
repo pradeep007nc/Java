@@ -3,6 +3,7 @@ package dev.pradeep.SirmaAssignment.Repository;
 import dev.pradeep.SirmaAssignment.Dao.ProjectDao;
 import dev.pradeep.SirmaAssignment.Exceptions.ProjectNotFoundException;
 import dev.pradeep.SirmaAssignment.Model.Project;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,9 @@ public class ProjectRepository {
 
   public void deleteById(Long projectId) {
     projectDao.deleteById(projectId);
+  }
+
+  public List<Project> findAll() {
+    return (List<Project>) projectDao.findAll();
   }
 }
