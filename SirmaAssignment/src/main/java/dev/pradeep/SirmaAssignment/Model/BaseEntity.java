@@ -1,91 +1,87 @@
 package dev.pradeep.SirmaAssignment.Model;
 
 import jakarta.persistence.*;
-import org.hibernate.Hibernate;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
-    @Column(
-            name = "id",
-            updatable = false,
-            nullable = false
-    )
-    @Id
-    private Long id;
-    @Column(
-            name = "created_at"
-    )
-    private LocalDateTime createdAt;
-    @Column(
-            name = "updated_at"
-    )
-    private LocalDateTime updatedAt;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", updatable = false, nullable = false)
+  @Id
+  private Long id;
 
-    @PrePersist
-    void createDate() {
-        if (this.createdAt == null) {
-            this.setCreatedAt(LocalDateTime.now());
-        }
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 
-        this.setUpdatedAt(LocalDateTime.now());
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
+
+  @PrePersist
+  void createDate() {
+    if (this.createdAt == null) {
+      this.setCreatedAt(LocalDateTime.now());
     }
 
-    @PreUpdate
-    void updatedAt() {
-        this.setUpdatedAt(LocalDateTime.now());
-    }
+    this.setUpdatedAt(LocalDateTime.now());
+  }
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        } else if (o != null && Hibernate.getClass(this) == Hibernate.getClass(o)) {
-            BaseEntity that = (BaseEntity)o;
-            return this.id != null && Objects.equals(this.id, that.id);
-        } else {
-            return false;
-        }
-    }
+  @PreUpdate
+  void updatedAt() {
+    this.setUpdatedAt(LocalDateTime.now());
+  }
 
-    public int hashCode() {
-        return this.getClass().hashCode();
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    } else if (o != null && Hibernate.getClass(this) == Hibernate.getClass(o)) {
+      BaseEntity that = (BaseEntity) o;
+      return this.id != null && Objects.equals(this.id, that.id);
+    } else {
+      return false;
     }
+  }
 
-    public Long getId() {
-        return this.id;
-    }
+  public int hashCode() {
+    return this.getClass().hashCode();
+  }
 
-    public LocalDateTime getCreatedAt() {
-        return this.createdAt;
-    }
+  public Long getId() {
+    return this.id;
+  }
 
-    public LocalDateTime getUpdatedAt() {
-        return this.updatedAt;
-    }
+  public LocalDateTime getCreatedAt() {
+    return this.createdAt;
+  }
 
-    public void setId(final Long id) {
-        this.id = id;
-    }
+  public LocalDateTime getUpdatedAt() {
+    return this.updatedAt;
+  }
 
-    public void setCreatedAt(final LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+  public void setId(final Long id) {
+    this.id = id;
+  }
 
-    public void setUpdatedAt(final LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  public void setCreatedAt(final LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public String toString() {
-        Long var10000 = this.getId();
-        return "BaseEntity(id=" + var10000 + ", createdAt=" + String.valueOf(this.getCreatedAt()) + ", updatedAt=" + String.valueOf(this.getUpdatedAt()) + ")";
-    }
+  public void setUpdatedAt(final LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-    public BaseEntity() {
-    }
+  public String toString() {
+    Long var10000 = this.getId();
+    return "BaseEntity(id="
+        + var10000
+        + ", createdAt="
+        + this.getCreatedAt()
+        + ", updatedAt="
+        + this.getUpdatedAt()
+        + ")";
+  }
+
+  public BaseEntity() {}
 }

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ProjectUpdatedResponse {
-    private String message = "Project updated successfully";
+  private String message = "Project updated successfully";
 }

@@ -11,18 +11,17 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 @RequiredArgsConstructor
 public class ProjectRepository {
-    private final ProjectDao projectDao;
+  private final ProjectDao projectDao;
 
+  public void saveProject(Project project) {
+    projectDao.save(project);
+  }
 
-    public void saveProject(Project project) {
-        projectDao.save(project);
-    }
+  public Project findById(Long projectId) {
+    return projectDao.findById(projectId).orElseThrow(ProjectNotFoundException::new);
+  }
 
-    public Project findById(Long projectId) {
-        return projectDao.findById(projectId).orElseThrow(ProjectNotFoundException::new);
-    }
-
-    public void deleteById(Long projectId) {
-        projectDao.deleteById(projectId);
-    }
+  public void deleteById(Long projectId) {
+    projectDao.deleteById(projectId);
+  }
 }

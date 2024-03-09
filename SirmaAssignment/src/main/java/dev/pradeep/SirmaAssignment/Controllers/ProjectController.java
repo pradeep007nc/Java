@@ -16,25 +16,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private final ProjectService projectService;
+  private final ProjectService projectService;
 
-    @DeleteMapping("/delete-project/{projectId}")
-    public ProjectDeletedResponse deleteProject(@PathVariable Long projectId) {
-        return projectService.deleteProject(projectId);
-    }
+  @DeleteMapping("/delete-project/{projectId}")
+  public ProjectDeletedResponse deleteProject(@PathVariable Long projectId) {
+    return projectService.deleteProject(projectId);
+  }
 
-    @PostMapping("update-project")
-    public ProjectUpdatedResponse updateProject(@RequestBody @Valid UpdateProjectDto updateProjectDto) {
-        return projectService.updateProject(updateProjectDto);
-    }
+  @PostMapping("update-project")
+  public ProjectUpdatedResponse updateProject(
+      @RequestBody @Valid UpdateProjectDto updateProjectDto) {
+    return projectService.updateProject(updateProjectDto);
+  }
 
-    @PostMapping("/create-project")
-    public ProjectCreatedResponse createProject(@RequestBody @Valid CreateProjectDto createProjectDto) {
-        return projectService.createProject(createProjectDto);
-    }
+  @PostMapping("/create-project")
+  public ProjectCreatedResponse createProject(
+      @RequestBody @Valid CreateProjectDto createProjectDto) {
+    return projectService.createProject(createProjectDto);
+  }
 
-    @GetMapping("/read-project/{projectId}")
-    public Project readProject(@PathVariable Long projectId) {
-        return projectService.findProject(projectId);
-    }
+  @GetMapping("/read-project/{projectId}")
+  public Project readProject(@PathVariable Long projectId) {
+    return projectService.findProject(projectId);
+  }
 }

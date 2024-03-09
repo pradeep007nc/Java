@@ -15,25 +15,29 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableWebMvc
 public class SwaggerConfig {
 
-    @Bean
-    public Docket activateApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("dev.pradeep.SirmaAssignment"))
-                .paths(PathSelectors.regex("/projects.*"))
-                .build()
-                .apiInfo(metaInfo());
-    }
+  @Bean
+  public Docket activateApi() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("dev.pradeep.SirmaAssignment"))
+        .paths(PathSelectors.regex("/projects.*"))
+        .build()
+        .apiInfo(metaInfo());
+  }
 
-    private ApiInfo metaInfo() {
-        return new ApiInfoBuilder()
-                .title("Sirma Assignment")
-                .description("Sirma assignment")
-                .version("1.0")
-                .termsOfServiceUrl("Terms of Service")
-                .contact(new Contact("pradeep", "https://pradeep007nc.github.io/Portfolio-website/", "pradeepnaidu2486@gmail.com"))
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
-                .build();
-    }
+  private ApiInfo metaInfo() {
+    return new ApiInfoBuilder()
+        .title("Sirma Assignment")
+        .description("Sirma assignment")
+        .version("1.0")
+        .termsOfServiceUrl("Terms of Service")
+        .contact(
+            new Contact(
+                "pradeep",
+                "https://pradeep007nc.github.io/Portfolio-website/",
+                "pradeepnaidu2486@gmail.com"))
+        .license("Apache License Version 2.0")
+        .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
+        .build();
+  }
 }
